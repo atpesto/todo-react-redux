@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { addTodo, toggleTodo } from './redux/actions';
 import TodoList from './TodoList';
+import { VisibilityFilters } from './redux/constants/ActionTypes';
 
 class App extends Component {
   state = {
@@ -27,19 +28,31 @@ class App extends Component {
   render() {
     return (
       <div>
-        <TodoList todos={this.props.todos} toggleTodo={this.props.toggleTodo}/>
         <div>
           <input type="text" value={this.state.inputText} onChange={this.onChangeHandlerText} />
           <input type="button" value="Add" onClick={this.onClickHandler} />
         </div>
+        <TodoList todos={this.props.todos} toggleTodo={this.props.toggleTodo}/>
       </div>
     );
   }
 }
 
+const getVisibleTodos = (todos, filter) => {
+  switch(filter) {
+    case VisibilityFilters.SHOW_ALL:
+      return todos;
+    case VisibilityFilters.SHOW_ACTIVE:
+      return todos.filter(todo => !todo.completed);
+    case VisibilityFilters.SHOW_COMPLETED:
+      return todos.filter(todo => todo.completed);
+    default:
+      return todos;
+  }
+}
 
 const mapStateToProps = state => ({
-  todos: state.todos,
+  todos: getVisibleTodos(state.todos, state.visibilityFilter),
 });
 
 // const mapDispatchToProps = {
