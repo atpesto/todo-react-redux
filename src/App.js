@@ -42,9 +42,18 @@ const mapStateToProps = state => ({
   todos: state.todos,
 });
 
-const mapDispatchToProps = {
-  addTodo,
-  toggleTodo,
-}
+// const mapDispatchToProps = {
+//   addTodo,
+//   toggleTodo,
+// }
+
+const mapDispatchToProps = (dispatch) => ({
+  addTodo: text => {
+    dispatch(addTodo(text))
+  },
+  toggleTodo: id => {
+    dispatch(toggleTodo(id))
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
