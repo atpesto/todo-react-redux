@@ -1,5 +1,9 @@
-export const addTodo = (id, text) => ({
+export const addTodo = (text) => ({
   type: 'ADD_TODO',
-  id: id,
   text: text,
 });
+
+export const toggleTodo = (id) => ({
+  type: 'TOGGLE_TODO',
+  id: id,
+})
