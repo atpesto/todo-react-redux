@@ -1,6 +1,10 @@
+import { MainActions } from '../constants/ActionTypes';
+
 const todos = (state = [], action) => {
   switch(action.type) {
-    case 'ADD_TODO':
+    case MainActions.ADD_TODOS:
+      return action.todos;
+    case MainActions.ADD_TODO:
       return [
         ...state,
         {
@@ -10,7 +14,7 @@ const todos = (state = [], action) => {
         },
       ];
 
-    case 'TOGGLE_TODO':
+    case MainActions.TOGGLE_TODO:
       return state.map(todo => (
         (todo.id === action.id) ?
           {

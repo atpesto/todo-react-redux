@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { addTodo, toggleTodo } from './redux/actions';
+import { addTodo, toggleTodo, getTodos } from './redux/actions';
 import TodoList from './TodoList';
 import { VisibilityFilters } from './redux/constants/ActionTypes';
 
@@ -23,6 +23,10 @@ class App extends Component {
     this.setState({
       inputText: '',
     })
+  }
+
+  componentDidMount() {
+    this.props.getTodos();
   }
 
   render() {
@@ -66,6 +70,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   toggleTodo: id => {
     dispatch(toggleTodo(id))
+  },
+  getTodos: () => {
+    dispatch(getTodos())
   },
 });
 
